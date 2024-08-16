@@ -1,7 +1,16 @@
 #include "Arduino.h"
 #include "PMS.h"
 
+
+PMS::PMS()
+{
+  //do nothing on declaration, call begin later
+}
 PMS::PMS(Stream& stream)
+{
+  this->_stream = &stream;
+}
+void PMS::begin(Stream& stream)
 {
   this->_stream = &stream;
 }
@@ -133,6 +142,15 @@ void PMS::loop()
           _data->PM_AE_UG_1_0 = makeWord(_payload[6], _payload[7]);
           _data->PM_AE_UG_2_5 = makeWord(_payload[8], _payload[9]);
           _data->PM_AE_UG_10_0 = makeWord(_payload[10], _payload[11]);
+
+          // Concentrations Greater Than 
+          
+          _data->PM_GT_0_3 = makeWord(_payload[12], _payload[13]);
+          _data->PM_GT_0_5 = makeWord(_payload[14], _payload[15]);
+          _data->PM_GT_1_0 = makeWord(_payload[16], _payload[17]);
+          _data->PM_GT_2_5 = makeWord(_payload[18], _payload[19]);
+          _data->PM_GT_5_0 = makeWord(_payload[20], _payload[21]);
+          _data->PM_GT_10_0 = makeWord(_payload[22], _payload[23]);
         }
 
         _index = 0;
